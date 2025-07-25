@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday Devashish!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Lora:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      min-height: 100vh;
+      font-family: 'Lora', serif;
+      overflow-x: hidden;
+      color: #f5f5f5;
+      /* Galaxy background */
+      background: #0a043c url('image.png') no-repeat center center fixed;
+      background-size: cover;
+    }
+    .galaxy-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 0;
+      background: radial-gradient(ellipse at 60% 40%, rgba(80,0,120,0.3) 0%, rgba(10,4,60,0.7) 100%);
+      mix-blend-mode: lighten;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      position: relative;
+      z-index: 1;
+    }
+    .cover {
+      background: rgba(24,24,44,0.92);
+      border-radius: 30px;
+      box-shadow: 0 8px 32px 0 rgba(0,0,0,0.7), 0 0 40px 10px #a259ff55;
+      padding: 40px 60px 30px 60px;
+      text-align: center;
+      position: relative;
+      max-width: 400px;
+      animation: popIn 1.2s cubic-bezier(.68,-0.55,.27,1.55);
+      border: 2px solid #FFD700;
+      margin-top: 80px;
+      box-shadow: 0 8px 32px 0 rgba(0,0,0,0.7), 0 0 60px 10px #a259ff88;
+    }
+    @keyframes popIn {
+      0% { transform: scale(0.7) rotate(-10deg); opacity: 0; }
+      80% { transform: scale(1.05) rotate(2deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0deg); }
+    }
+    .title {
+      font-family: 'Merriweather', serif;
+      font-size: 2.5rem;
+      color: #FFD700;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+      text-shadow: 0 2px 8px #000, 0 0 16px #fff8;
+    }
+    .subtitle {
+      font-size: 1.2rem;
+      color: #f5f5f5;
+      margin-bottom: 30px;
+      text-shadow: 0 1px 4px #000, 0 0 8px #fff8;
+    }
+    .flip-btn {
+      background: linear-gradient(90deg, #FFD700 0%, #bfa43a 100%);
+      color: #181818;
+      border: none;
+      border-radius: 25px;
+      padding: 12px 28px;
+      font-size: 1.1rem;
+      font-family: 'Montserrat', sans-serif;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(255, 215, 0, 0.15);
+      transition: background 0.3s, transform 0.2s;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .flip-btn:hover {
+      background: linear-gradient(90deg, #bfa43a 0%, #FFD700 100%);
+      transform: scale(1.07);
+    }
+    /* Book Styles */
+    .book-container {
+      perspective: 2000px;
+      margin-top: 30px;
+      min-height: 500px;
+      filter: drop-shadow(0 0 60px #a259ff88);
+    }
+    .book {
+      width: 600px;
+      height: 800px;
+      position: relative;
+      transform-style: preserve-3d;
+      margin: auto;
+      perspective: 2000px;
+    }
+    .page {
+      width: 100%;
+      height: 100%;
+      background: rgba(24,24,44,0.92);
+      border-radius: 24px;
+      box-shadow: 0 4px 32px rgba(0,0,0,0.4), 0 0 60px 16px #a259ff55;
+      position: absolute;
+      top: 0; left: 0;
+      overflow: hidden;
+      transition: transform 0.8s cubic-bezier(.77,0,.18,1), z-index 0.5s, box-shadow 0.5s, opacity 0.5s;
+      backface-visibility: hidden;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 50px;
+      border: 2.5px solid #FFD700;
+      color: #f5f5f5;
+      opacity: 0.98;
+    }
+    .page.active {
+      display: flex;
+      box-shadow: 0 8px 32px 0 #a259ffcc, 0 0 80px 20px #a259ff88;
+      opacity: 1;
+      z-index: 100 !important;
+      border: 2.5px solid #fff;
+      transform: rotateY(0deg) scale(1.01);
+    }
+    .page.flipping {
+      display: flex;
+      z-index: 101 !important;
+      box-shadow: 0 8px 32px 0 #a259ffcc, 0 0 80px 20px #a259ff88;
+      opacity: 1;
+      animation: flipPage 0.8s cubic-bezier(.77,0,.18,1);
+    }
+    @keyframes flipPage {
+      0% { transform: rotateY(0deg) scale(1.01); }
+      100% { transform: rotateY(-180deg) scale(0.98); opacity: 0.7; }
+    }
+    .page-content, .fighter-jet-page-title, .fighter-jet-page-msg {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      word-break: break-word;
+      text-shadow: 0 2px 8px #000, 0 0 16px #fff8;
+      font-family: 'Lora', serif;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .fighter-jet-page-title {
+      font-size: 2.2rem;
+      color: #FFD700;
+      font-family: 'Merriweather', serif;
+      margin-bottom: 18px;
+      text-shadow: 0 2px 8px #000, 0 0 16px #fff8;
+      text-align: center;
+    }
+    .fighter-jet-page-msg {
+      font-size: 1.25rem;
+      color: #fff;
+      margin-bottom: 0;
+      text-shadow: 0 1px 4px #000, 0 0 8px #fff8;
+      text-align: center;
+    }
+    .nav-arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: linear-gradient(90deg, #FFD700 0%, #bfa43a 100%);
+      color: #181818;
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 1.7rem;
+      cursor: pointer;
+      box-shadow: 0 4px 14px rgba(255, 215, 0, 0.15);
+      z-index: 10;
+      transition: background 0.3s, transform 0.2s;
+      opacity: 0.85;
+      font-weight: bold;
+    }
+    .nav-arrow:hover {
+      background: linear-gradient(90deg, #bfa43a 0%, #FFD700 100%);
+      transform: translateY(-50%) scale(1.1);
+    }
+    .nav-arrow.left { left: -60px; }
+    .nav-arrow.right { right: -60px; }
+    @media (max-width: 900px) {
+      .book, .cover, .page { width: 98vw !important; min-width: 0; }
+      .book { height: 140vw; min-height: 350px; max-height: 98vh; }
+      .page { height: 140vw; min-height: 350px; max-height: 98vh; }
+      .nav-arrow.left { left: -30px; }
+      .nav-arrow.right { right: -30px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="galaxy-overlay"></div>
+  <!-- Spotify Player for Lose My Mind (feat. Doja Cat) [From F1® The Movie] -->
+  <div id="spotify-player-container" style="display:none; position:fixed; left:50%; bottom:24px; transform:translateX(-50%); z-index:9999; width:340px; box-shadow:0 4px 24px #0008; border-radius:16px; background:rgba(24,24,44,0.92);">
+    <iframe style="border-radius:12px; width:100%; min-width:300px;" src="https://open.spotify.com/embed/track/02BcXEH1zJYbXSabPtNlKf?si=914f1cae09124df5" width="100%" height="80" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture" loading="lazy"></iframe>
+    <div style="font-size:0.95rem; color:#FFD700; text-align:center; padding-bottom:6px; font-weight:bold;">Play your favorite song!</div>
+  </div>
+  <div class="container">
+    <div class="cover" id="coverPage">
+      <div class="title">Happy Birthday Devashish!</div>
+      <div class="subtitle" style="font-size:1.15rem; line-height:1.6; max-width: 340px; margin: 0 auto 30px auto;">
+        To a friend who is truly rare — kind at heart, honest in words, and humble in every way.<br>
+        Your presence brings calm, your words bring comfort, and your friendship means the world.<br>
+        Wishing you a day as genuine and beautiful as you are.<br>
+        <span style="display:block; margin-top:10px; color:#FFD700; font-family:'Merriweather',serif; font-weight:bold;">I’m lucky to call you my best friend.</span>
+      </div>
+      <button class="flip-btn" onclick="openBook()">Open Your Birthday Notebook</button>
+    </div>
+    <div id="bookSection" style="display:none;">
+      <div class="book-container">
+        <button class="nav-arrow left" id="prevBtn" onclick="prevPage()" style="display:none;">&#8592;</button>
+        <div class="book" id="book">
+          <div class="page fighter-jet-page" id="page0" style="z-index:3;">
+            <div class="fighter-jet-page-title">Happy Birthday, Devashish!</div>
+            <div class="fighter-jet-page-msg" style="max-width: 90%; font-size: 1.15rem;">
+              <span style="font-size:1.3rem; color:#FFD700; font-family:'Merriweather',serif; font-weight:bold;">Many many happy returns of the day!</span><br><br>
+              To my partner-in-crime, jet-stream dreamer, and rhythm soul—<br>
+              Life got easier, happier, and crazier the moment you walked in.<br>
+              Thank you for being the calm in my chaos and the loudest cheer in my silence.<br>
+              <span style="display:block; margin:18px 0 0 0; font-size:1.1rem; color:#FFD700; font-family:'Merriweather',serif;">Here’s to more skies, more songs, and a lifetime of laughter together!</span>
+            </div>
+          </div>
+          <div class="page fighter-jet-page" id="page1" style="z-index:2;">
+            <div class="page-content" style="align-items:center; justify-content:center;">
+              <img src="WhatsApp Image 2025-07-25 at 21.51.20_4ae94b44.jpg" alt="Friendship" style="max-width:320px; max-height:220px; border-radius:18px; margin-bottom:18px; box-shadow:0 4px 24px #0008; border:2.5px solid #FFD700;">
+              <div style="font-size:1.5rem; color:#FFD700; font-family:'Merriweather',serif; font-weight:bold; margin-bottom:18px;">From Strangers to Something Special</div>
+              <div style="font-size:1.08rem; line-height:1.7; color:#f5f5f5; max-width:340px; text-align:center;">
+                In the first year, we walked past each other — strangers,<br>
+                Not knowing the memories time would gather.<br>
+                We barely spoke, sometimes even judged,<br>
+                And laughed about each other’s world, never budged.<br><br>
+                But slowly, life brought us face to face,<br>
+                In shared moments, journeys, and quiet grace.<br>
+                From silly taunts to deep late-night chats,<br>
+                We found a bond — stronger than facts.<br><br>
+                Now Janakpuri isn’t just where you're from,<br>
+                It’s a name that feels like a rhythm, a song.<br>
+                What started with distance, turned into trust —<br>
+                A friendship that’s honest, humble, and just.
+              </div>
+            </div>
+          </div>
+          <div class="page fighter-jet-page" id="page2" style="z-index:1;">
+            <div class="page-content" style="align-items:center; justify-content:center;">
+              <div style="font-size:1.2rem; color:#FFD700; font-family:'Merriweather',serif; font-weight:bold; margin-bottom:14px;">Thank You for Staying</div>
+              <div style="font-size:0.95rem; line-height:1.6; color:#f5f5f5; max-width:340px; text-align:center;">
+                I know I’m not the easiest to hold,<br>
+                Rude at times, distant, bitter, cold.<br>
+                I push, I break, I say things unfair,<br>
+                Act like I don’t feel, like I don’t care.<br><br>
+                You’ve seen me in storms I couldn’t name,<br>
+                Still, you stayed — through anger, guilt, and shame.<br>
+                Even when I tried to send you away,<br>
+                You stood by me, day after day.<br><br>
+                You didn’t just tolerate — you truly saw,<br>
+                The cracks, the fears, the quietest flaw.<br>
+                You made me smile when I had forgotten how,<br>
+                Taught me friendship isn’t just a word — it’s a vow.<br><br>
+                You helped me bury my haunted past,<br>
+                Showed me not every good thing ends too fast.<br>
+                With you, I found a new light, a new start,<br>
+                And slowly, piece by piece, rebuilt my heart.<br><br>
+                So thank you — for the patience, the love, the grace,<br>
+                For holding space when I needed a place.<br>
+                You believed when I didn’t, you chose to stay,<br>
+                And that’s why I believe in friendship — today.
+              </div>
+              <button class="flip-btn" onclick="closeBook()" style="margin-top:18px;">⬅️ Back to Cover</button>
+            </div>
+          </div>
+        </div>
+        <button class="nav-arrow right" id="nextBtn" onclick="nextPage()">&#8594;</button>
+      </div>
+    </div>
+  </div>
+  <script>
+    // Book flip logic
+    let currentPage = 0;
+    const totalPages = 3;
+    function openBook() {
+      document.getElementById('coverPage').style.display = 'none';
+      document.getElementById('bookSection').style.display = 'block';
+      // Show Spotify player
+      var spotify = document.getElementById('spotify-player-container');
+      spotify.style.display = 'block';
+      setTimeout(() => { spotify.scrollIntoView({behavior: 'smooth', block: 'end'}); }, 300);
+      showPage(0);
+    }
+    function closeBook() {
+      document.getElementById('bookSection').style.display = 'none';
+      document.getElementById('coverPage').style.display = 'block';
+      currentPage = 0;
+      // Hide Spotify player
+      document.getElementById('spotify-player-container').style.display = 'none';
+      showPage(0);
+    }
+    function showPage(n) {
+      for (let i = 0; i < totalPages; i++) {
+        const page = document.getElementById('page' + i);
+        page.classList.remove('active', 'flipping');
+        page.style.display = 'none';
+        if (i === n) {
+          page.style.display = 'flex';
+          page.classList.add('active');
+          page.style.transform = 'rotateY(0deg) scale(1.01)';
+          page.style.zIndex = totalPages;
+        } else {
+          page.style.transform = 'rotateY(0deg)';
+          page.style.zIndex = totalPages - i;
+        }
+      }
+      document.getElementById('prevBtn').style.display = n === 0 ? 'none' : 'block';
+      document.getElementById('nextBtn').style.display = n === totalPages - 1 ? 'none' : 'block';
+      currentPage = n;
+    }
+    function nextPage() {
+      if (currentPage < totalPages - 1) {
+        const current = document.getElementById('page' + currentPage);
+        const next = document.getElementById('page' + (currentPage + 1));
+        current.classList.remove('active');
+        current.classList.add('flipping');
+        next.style.display = 'flex';
+        setTimeout(() => {
+          current.classList.remove('flipping');
+          showPage(currentPage + 1);
+        }, 800);
+      }
+    }
+    function prevPage() {
+      if (currentPage > 0) {
+        const current = document.getElementById('page' + currentPage);
+        const prev = document.getElementById('page' + (currentPage - 1));
+        prev.style.display = 'flex';
+        prev.classList.add('flipping');
+        setTimeout(() => {
+          prev.classList.remove('flipping');
+          showPage(currentPage - 1);
+        }, 800);
+      }
+    }
+  </script>
+</body>
+</html> 
